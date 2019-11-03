@@ -1,0 +1,36 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "id": "drawer",
+    "title": "drawer",
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string",
+        "description": "name of all template",
+        "alias": "n",
+        "$default": {
+          "$source": "argv",
+          "index": 0
+        },
+        "x-prompt": "what's your edit component name:"
+      },
+      "module":{
+        "type":"string",
+        "description": "module of all template",
+        "$default": {
+          "$source": "argv",
+          "index": 1
+        },
+        "x-prompt": "which module do you want to add to:"
+      },
+      "path": {
+        "type": "string",
+        "default": "src/app/biz/shared/components/",
+        "description": "Path to create all templates"
+      }
+    },
+    "required": [
+        "name",
+        "module"
+    ]
+  }

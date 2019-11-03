@@ -1,0 +1,29 @@
+{
+  "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
+  "schematics": {
+    "ng-add": {
+      "description": "A blank schematic.",
+      "factory": "./ng-add/index#ngJojo"
+    },
+    "biz": {
+      "description": "biz",
+      "factory": "./biz/index#biz",
+      "schema": "./biz/schema.json"
+    },
+    "piece3": {
+      "description": "piece3",
+      "factory": "./piece3/index#piece3",
+      "schema": "./piece3/schema.json"
+    },
+    "drawer": {
+      "description": "drawer",
+      "factory": "./drawer/index#drawer",
+      "schema": "./drawer/schema.json"
+    },
+    "dynamic": {
+      "description": "dynamic",
+      "factory": "./dynamic/index#dynamic",
+      "schema": "./dynamic/schema.json"
+    }
+  }
+}

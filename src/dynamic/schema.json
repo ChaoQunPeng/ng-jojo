@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "3piece",
+  "title": "3piece",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "name of all template",
+      "alias": "n",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "what's your component name:"
+    },
+    "module": {
+      "type": "string",
+      "description": "module of all template",
+      "alias": "m",
+      "$default": {
+        "$source": "argv",
+        "index": 1
+      },
+      "x-prompt": "Which module do you want to add to:"
+    },
+    "listPath": {
+      "type": "string",
+      "default": "src/app/biz/page/",
+      "description": "list compoent path"
+    },
+    "newPath": {
+      "type": "string",
+      "default": "src/app/biz/shared/components/",
+      "description": "new compoent path"
+    },
+    "editPath": {
+      "type": "string",
+      "default": "src/app/biz/shared/components/",
+      "description": "edit component path"
+    }
+  },
+  "required": [
+    "name",
+    "module"
+  ]
+}

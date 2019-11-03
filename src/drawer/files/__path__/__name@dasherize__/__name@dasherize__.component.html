@@ -1,0 +1,10 @@
+<nz-drawer [nzVisible]="isVisible" [nzTitle]="'<%=classify(name)%>'" [nzWidth]="'520px'" (nzOnClose)="handleOnCancel()">
+
+    <%=classify(name)%>
+
+    <div class="drawer-footer">
+        <button type="button" nz-button nzType="primary" (click)="handleOk()" class="mr-sm"><span>确定</span></button>
+        <button type="button" nz-button nzType="default" (click)="handleOnCancel()"
+            class="mr-sm"><span>取消</span></button>
+    </div>
+</nz-drawer>

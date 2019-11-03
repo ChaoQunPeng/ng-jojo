@@ -1,0 +1,33 @@
+<% if(editComponentType=='static') { %>
+<nz-modal [(nzVisible)]="isVisible" [nzTitle]="'编辑<%=classify(name)%>'" [nzWidth]="'520px'" [nzFooter]="modalFooterTpl"
+    (nzAfterOpen)="handleAfterOpen()" (nzOnCancel)="handleCancel()" nzMaskClosable="true">
+
+    <%=classify(name)%>
+    <form nz-form [formGroup]="form" (ngSubmit)="submit(event)">
+
+    </form>
+
+    <ng-template #modalFooterTpl>
+        <div>
+            <button nz-button nzType="primary" (click)="handleOk()">确定</button>
+            <button nz-button nzType="default" (click)="handleCancel()">取消</button>
+        </div>
+    </ng-template>
+
+</nz-modal>
+<% } else { %>
+    <nz-modal [(nzVisible)]="isVisible" [nzTitle]="'编辑<%=classify(name)%>'"  [nzWidth]="'520px'" [nzFooter]="modalFooterTpl"
+        (nzAfterOpen)="handleAfterOpen()" (nzOnCancel)="handleCancel()" nzMaskClosable="true">
+    
+        <%=classify(name)%>
+        <sf [button]="null" [schema]="schema" #sf></sf>
+    
+        <ng-template #modalFooterTpl>
+            <div>
+                <button nz-button nzType="primary" (click)="handleOk(#sf.value)">确定</button>
+                <button nz-button nzType="default" (click)="handleCancel()">取消</button>
+            </div>
+        </ng-template>
+    
+    </nz-modal>
+<% } %>

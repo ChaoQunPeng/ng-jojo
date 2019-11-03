@@ -1,0 +1,98 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "biz",
+  "title": "biz",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "name of all template",
+      "alias": "n",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "what's your component name:"
+    },
+    "module": {
+      "type": "string",
+      "description": "module of all template",
+      "alias": "m",
+      "$default": {
+        "$source": "argv",
+        "index": 1
+      },
+      "x-prompt": "Which module do you want to add to:"
+    },
+    "operaComponent": {
+      "type": "string",
+      "alias": "o",
+      "default": "modal",
+      "enum": [
+        "modal",
+        "drawer"
+      ],
+      "description": "modal or drawer"
+    },
+    "apiPath": {
+      "type": "string",
+      "default": "src/app/biz/restful/",
+      "description": "restful path"
+    },
+    "listPath": {
+      "type": "string",
+      "default": "src/app/biz/page/",
+      "description": "list compoent path"
+    },
+    "listComponentType": {
+      "type": "string",
+      "alias": "lt",
+      "default": "static",
+      "enum": [
+        "static",
+        "dynamic"
+      ],
+      "description": "list component table type is static or dynamic"
+    },
+    "newPath": {
+      "type": "string",
+      "default": "src/app/biz/shared/components/",
+      "description": "new compoent path"
+    },
+    "newComponentType": {
+      "type": "string",
+      "alias": "nt",
+      "default": "static",
+      "enum": [
+        "static",
+        "dynamic"
+      ],
+      "description": "new component table type is static or dynamic"
+    },
+    "editPath": {
+      "type": "string",
+      "default": "src/app/biz/shared/components/",
+      "description": "edit component path"
+    },
+    "editComponentType": {
+      "type": "string",
+      "alias": "et",
+      "default": "static",
+      "enum": [
+        "static",
+        "dynamic"
+      ],
+      "description": "edit component table type is static or dynamic"
+    },
+    "isBiz": {
+      "type": "boolean",
+      "alias": "biz",
+      "default": true,
+      "description": "whether in biz create"
+    }
+  },
+  "required": [
+    "name",
+    "module"
+  ]
+}

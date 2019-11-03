@@ -1,0 +1,1 @@
+export const ShareModulePath = "src/app/shared/shared.module.ts";
