@@ -13,4 +13,5 @@ export interface piece3Options {
     listComponentType?: string;
     editComponentType?: string;
     newComponentType?: string;
+    isBiz: boolean;
 }

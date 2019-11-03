@@ -34,13 +34,9 @@ export function addValToVar(filePath: string, variableName: string, text: string
     return (host: Tree) => {
         let moduleSource = getSourceFile(host, filePath);
         // const allNodes = getSourceNodes(moduleSource);
-        // console.log(`allNodes`)
-        // console.log(allNodes[0])
         // allNodes[0].parent as any
 
         const node = findNode(moduleSource, ts.SyntaxKind.Identifier, variableName) as ts.Node;
-        // console.log(`node`);
-        // console.log(node);
 
         const arr = (node.parent as any).initializer as ts.ArrayLiteralExpression;
 

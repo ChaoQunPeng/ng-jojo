@@ -1,16 +1,16 @@
 import { chain, Rule, apply, url, template, branchAndMerge, mergeWith } from '@angular-devkit/schematics';
 import { classify, dasherize, camelize, underscore } from '@angular-devkit/core/src/utils/strings';
 import { bizOptions } from "./schema";
-import { addImport, addValToVar } from '../utils/build'; // buildSmart
+import { addImport, addValToVar } from '../utils/build'; // buildSmart 
 import { Biz, Routes } from '../utils/config';
 
 
 const stringUtils = { classify, dasherize, camelize, underscore };
 
 export function biz(options: bizOptions): Rule {
-    
+
     // 是业务模块还是框架模块
-    const MODULE = options.IsBiz ? Biz : Routes;
+    const MODULE = options.isBiz ? Biz : Routes;
 
     const bizChildren = {
         ChildrenPath: MODULE.RoutingModuleChildrenPath,
@@ -41,14 +41,15 @@ export function biz(options: bizOptions): Rule {
         name: options.name,
         module: options.module,
         operaComponent: options.operaComponent,
-        apiPath: options.apiPath,
-        listPath: options.listPath + options.module + "/",
-        newPath: options.newPath + options.module + "/",
-        editPath: options.editPath + options.module + "/",
+        apiPath: MODULE.RestfulPath,
+        listPath: MODULE.ListPath + options.module + "/",
+        newPath: MODULE.NewPath + options.module + "/",
+        editPath: MODULE.EditPath + options.module + "/",
         listComponentType: options.listComponentType,
         editComponentType: options.editComponentType,
         newComponentType: options.newComponentType
     }
+
     const templateSource = apply(url('./files'), [
         template({
             ...stringUtils,
@@ -59,7 +60,7 @@ export function biz(options: bizOptions): Rule {
     return chain([
         branchAndMerge(chain([
             mergeWith(templateSource),
-            addValToVar(bizChildren.ChildrenPath, "BizModules", bizChildren.symbolName),
+            addValToVar(bizChildren.ChildrenPath, MODULE.RoutingModuleChildrenVarName, bizChildren.symbolName),
             // //list module.ts
             // addImport(listOptions.modPath, listOptions.symbolName, listOptions.componentPath),
             // addValToVar(listOptions.modPath, "COMPONENTS", listOptions.symbolName),

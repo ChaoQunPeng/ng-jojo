@@ -14,5 +14,5 @@ export interface bizOptions {
     listComponentType?: string;
     editComponentType?: string;
     newComponentType?: string;
-    IsBiz?: boolean;
+    isBiz: boolean;
 }

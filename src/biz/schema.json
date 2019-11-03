@@ -36,12 +36,10 @@
     },
     "apiPath": {
       "type": "string",
-      "default": "src/app/biz/restful/",
       "description": "restful path"
     },
     "listPath": {
       "type": "string",
-      "default": "src/app/biz/page/",
       "description": "list compoent path"
     },
     "listComponentType": {
@@ -56,7 +54,6 @@
     },
     "newPath": {
       "type": "string",
-      "default": "src/app/biz/shared/components/",
       "description": "new compoent path"
     },
     "newComponentType": {
@@ -71,7 +68,6 @@
     },
     "editPath": {
       "type": "string",
-      "default": "src/app/biz/shared/components/",
       "description": "edit component path"
     },
     "editComponentType": {

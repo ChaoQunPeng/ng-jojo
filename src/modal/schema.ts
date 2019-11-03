@@ -5,4 +5,5 @@ export interface schemaOptions {
     filePath: string;
     symbolName: string;
     componentPath: string;
+    IsBiz?: boolean;
 }

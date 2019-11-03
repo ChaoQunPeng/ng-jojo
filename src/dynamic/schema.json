@@ -26,18 +26,21 @@
     },
     "listPath": {
       "type": "string",
-      "default": "src/app/biz/page/",
       "description": "list compoent path"
     },
     "newPath": {
       "type": "string",
-      "default": "src/app/biz/shared/components/",
       "description": "new compoent path"
     },
     "editPath": {
       "type": "string",
-      "default": "src/app/biz/shared/components/",
       "description": "edit component path"
+    },
+    "isBiz": {
+      "type": "boolean",
+      "alias": "biz",
+      "default": true,
+      "description": "whether in biz create"
     }
   },
   "required": [

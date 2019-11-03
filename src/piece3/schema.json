@@ -36,7 +36,6 @@
     },
     "listPath": {
       "type": "string",
-      "default": "src/app/biz/page/",
       "description": "list compoent path"
     },
     "listComponentType": {
@@ -51,7 +50,6 @@
     },
     "newPath": {
       "type": "string",
-      "default": "src/app/biz/shared/components/",
       "description": "new compoent path"
     },
     "newComponentType": {
@@ -66,7 +64,6 @@
     },
     "editPath": {
       "type": "string",
-      "default": "src/app/biz/shared/components/",
       "description": "edit component path"
     },
     "editComponentType": {
@@ -78,6 +75,12 @@
         "dynamic"
       ],
       "description": "edit component table type is static or dynamic"
+    },
+    "isBiz": {
+      "type": "boolean",
+      "alias": "biz",
+      "default": true,
+      "description": "whether in biz create"
     }
   },
   "required": [
