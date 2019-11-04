@@ -7,7 +7,7 @@ import { Biz, Routes } from '../utils/config';
 const stringUtils = { classify, dasherize, camelize, underscore };
 
 export function dynamic(options: DynamicOptions): Rule {
-    const MODULE = options.IsBiz ? Biz : Routes;
+    const MODULE = options.isBiz ? Biz : Routes;
 
     const listOptions = {
         modPath: `${MODULE.ListPath}${options.module}/${options.module}.module.ts`,

@@ -10,5 +10,5 @@ export interface DynamicOptions {
     componentName?: string;
     componentPath?: string;
     filePath?: string;
-    IsBiz?: boolean;
+    isBiz?: boolean;
 }
