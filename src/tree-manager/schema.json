@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "3piece",
+  "title": "3piece",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "name of all template",
+      "alias": "n",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "what's your component name:"
+    },
+    "module": {
+      "type": "string",
+      "description": "module of all template",
+      "alias": "m",
+      "$default": {
+        "$source": "argv",
+        "index": 1
+      },
+      "x-prompt": "Which module do you want to add to:"
+    },
+    "listPath": {
+      "type": "string",
+      "description": "list compoent path"
+    },
+    "newPath": {
+      "type": "string",
+      "description": "new compoent path"
+    },
+    "editPath": {
+      "type": "string",
+      "description": "edit component path"
+    },
+    "isBiz": {
+      "type": "boolean",
+      "alias": "biz",
+      "default": true,
+      "description": "whether in biz create"
+    }
+  },
+  "required": [
+    "name",
+    "module"
+  ]
+}
