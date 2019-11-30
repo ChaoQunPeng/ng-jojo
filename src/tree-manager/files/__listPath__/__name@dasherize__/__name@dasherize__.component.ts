@@ -35,7 +35,7 @@ export class <%=classify(name) %>Component implements OnInit {
   getTreeDataList() {
     this.loading = true;
     this.cdr.detectChanges();
-    this.<%=camelize(name) %Service.getTreeDataList().subscribe(res => {
+    this.<%=camelize(name) %>Service.getTreeDataList().subscribe(res => {
       this.treeDataList = res;
       this.expandKeys = [...this.expandKeys];
       if (this.tableDataList.length) { // 右侧表格有显示数据则刷新
@@ -75,7 +75,7 @@ export class <%=classify(name) %>Component implements OnInit {
    * 打开新增抽屉
    */
   add() {
-    const drawerRef = this.<%=camelize(name) %Service.createNewDrawer();
+    const drawerRef = this.<%=camelize(name) %>Service.createNewDrawer();
 
     drawerRef.afterClose.subscribe(res => {
       if (res) {
@@ -89,7 +89,7 @@ export class <%=classify(name) %>Component implements OnInit {
    * @param item 编辑对象
    */
   edit(item) {
-    const drawerRef = this.<%=camelize(name) %Service.createEditDrawer({
+    const drawerRef = this.<%=camelize(name) %>Service.createEditDrawer({
       nzTitle: ``,
       nzContentParams: item
     });
@@ -106,7 +106,7 @@ export class <%=classify(name) %>Component implements OnInit {
    * @param item 待删除的对象
    */
   del(item) {
-    this.<%=camelize(name) %Service.del(item.id).subscribe(res => {
+    this.<%=camelize(name) %>Service.del(item.id).subscribe(res => {
       if (res.EffectCount) {
         this.msg.success(`删除成功！`);
         this.getTreeDataList();

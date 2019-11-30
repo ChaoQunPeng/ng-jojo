@@ -1,0 +1,79 @@
+<!-- <div class="pt-lg">
+  <nz-card [nzTitle]="titleTpl" [nzExtra]="extraTpl">
+
+    <ng-template #titleTpl>
+      <%=classify(name)%>
+    </ng-template>
+
+    <ng-template #extraTpl>
+      <button nz-button nzType="primary" (click)="add()">新增</button>
+      <button nz-button nzShape="circle" [nzLoading]="loading" (click)="reload()">
+        <i nz-icon nzType="reload" nzTheme="outline"></i>
+      </button>
+    </ng-template>
+
+    <div nz-row nzGutter="16">
+
+      <div nz-col nzSpan="5" class="chs-scroll-view" style="height: 600px;max-height: 600px;">
+        <nz-spin [nzSpinning]="loading">
+          <app-tree-manager #treeManager
+            [data]="treeDataList"
+            [expandKeys]="expandKeys"
+            (onClickChange)="treeManageClickChange($event)"
+            (onExpandChange)="treeManageExpandChange($event)"
+            >
+          </app-tree-manager>
+        </nz-spin>
+      </div>
+
+      <div nz-col nzSpan="19">
+        <nz-table #basicTable  [nzData]="tableDataList" [nzLoading]="loading" nzShowPagination="false" class="tree-manager-table">
+          <thead>
+            <tr>
+              <th nzWidth="40px"></th>
+              <th nzWidth="50px" nzAlign="center">标识</th>
+
+              <th nzWidth="120px" nzAlign="center">操作</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <ng-container *ngFor="let item of basicTable.data">
+              <tr>
+                <td [nzShowExpand]="item?.Children.length > 0" [(nzExpand)]="item.expand"></td>
+                <td nzAlign="center">标识</td>
+
+                <td nzAlign="center">
+                  <a (click)="edit(item)">编辑</a>
+                  <nz-divider nzType="vertical"></nz-divider>
+                  <a nz-popconfirm [nzPopconfirmTitle]="'您确定删除【' + item?.Name + '】这条数据吗？'"
+                    (nzOnConfirm)="del(item)">删除</a>
+                </td>
+              </tr>
+
+              <ng-container *ngFor="let itemChild of item?.Children">
+
+                <tr [nzExpand]="itemChild.expand">
+                  <td></td>
+                  <td nzAlign="center">标识</td>
+
+                  <td nzAlign="center">
+                    <a (click)="edit(itemChild)">编辑</a>
+                    <nz-divider nzType="vertical"></nz-divider>
+                    <a nz-popconfirm [nzPopconfirmTitle]="'您确定删除【' + itemChild?.Name + '】这条数据吗？'"
+                      (nzOnConfirm)="del(itemChild)">删除</a>
+                  </td>
+                </tr>
+
+              </ng-container>
+
+            </ng-container>
+
+          </tbody>
+        </nz-table>
+      </div>
+
+    </div>
+
+  </nz-card>
+</div> -->
