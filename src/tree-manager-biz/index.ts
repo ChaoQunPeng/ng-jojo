@@ -7,7 +7,7 @@ import { Biz, Routes } from '../utils/config';
 
 const stringUtils = { classify, dasherize, camelize, underscore };
 
-export function treeManager(options: TreeManagerOptions): Rule {
+export function treeManagerBiz(options: TreeManagerOptions): Rule {
 
     // 是业务模块还是框架模块
     const MODULE = options.isBiz ? Biz : Routes;
@@ -19,13 +19,13 @@ export function treeManager(options: TreeManagerOptions): Rule {
         symbolName: `{ path: '${options.module}', loadChildren: () => import('.${childrenPath}/${options.module}/${options.module}.module').then(m => m.${classify(options.module)}Module) }`
     }
 
-    const listOptions = {
-        modPath: `${MODULE.ListPath}${options.module}/${options.module}.module.ts`,
-        routeModPath: `${MODULE.ListPath}${options.module}/${options.module}-routing.module.ts`,
-        symbolName: `${classify(options.name)}Component`,
-        componentPath: `./${options.name}/${options.name}.component`,
-        route: `{ path: '${options.name}', component: ${classify(options.name)}Component }`
-    };
+    // const listOptions = {
+    //     modPath: `${options.listPath}${options.module}/${options.module}.module.ts`,
+    //     routeModPath: `${options.listPath}${options.module}/${options.module}-routing.module.ts`,
+    //     symbolName: `${classify(options.name)}Component`,
+    //     componentPath: `./${options.name}/${options.name}.component`,
+    //     route: `{ path: '${options.name}', component: ${classify(options.name)}Component }`
+    // };
 
     const newOptions = {
         sharedModulePath: MODULE.SharedModulePath,
@@ -67,12 +67,12 @@ export function treeManager(options: TreeManagerOptions): Rule {
         branchAndMerge(chain([
             mergeWith(templateSource),
             addValToVar(bizChildren.ChildrenPath, MODULE.RoutingModuleChildrenVarName, bizChildren.symbolName),
-            //list module.ts
-            addImport(listOptions.modPath, listOptions.symbolName, listOptions.componentPath),
-            addValToVar(listOptions.modPath, "COMPONENTS", listOptions.symbolName),
-            //list routing-module.ts
-            addImport(listOptions.routeModPath, listOptions.symbolName, listOptions.componentPath),
-            addValToVar(listOptions.routeModPath, "routes", listOptions.route),
+            // //list module.ts
+            // addImport(listOptions.modPath, listOptions.symbolName, listOptions.componentPath),
+            // addValToVar(listOptions.modPath, "COMPONENTS", listOptions.symbolName),
+            // //list routing-module.ts
+            // addImport(listOptions.routeModPath, listOptions.symbolName, listOptions.componentPath),
+            // addValToVar(listOptions.routeModPath, "routes", listOptions.route),
 
             //new module.ts
             addImport(newOptions.sharedModulePath, newOptions.symbolName, newOptions.componentPath),

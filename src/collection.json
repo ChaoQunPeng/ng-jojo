@@ -25,6 +25,11 @@
       "factory": "./dynamic/index#dynamic",
       "schema": "./dynamic/schema.json"
     },
+    "tree-manager-biz": {
+      "description": "tree-manager-biz",
+      "factory": "./tree-manager-biz/index#treeManagerBiz",
+      "schema": "./tree-manager-biz/schema.json"
+    },
     "tree-manager": {
       "description": "tree-manager",
       "factory": "./tree-manager/index#treeManager",
