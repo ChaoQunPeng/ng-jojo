@@ -1,0 +1,7 @@
+<sf #sf [schema]="schema" [formData]="formData" [button]="null"></sf>
+
+<div class="drawer-footer">
+  <button type="button" nz-button nzType="primary" (click)="handleOk(sf.value)"
+    [disabled]="!sf.valid"><span>确定</span></button>
+  <button type="button" nz-button nzType="default" (click)="handleCancel()"><span>取消</span></button>
+</div>

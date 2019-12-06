@@ -34,6 +34,11 @@
       "description": "tree-manager",
       "factory": "./tree-manager/index#treeManager",
       "schema": "./tree-manager/schema.json"
+    },
+    "dynamic-biz": {
+      "description": "dynamic-biz",
+      "factory": "./dynamic-biz/index#main",
+      "schema": "./dynamic-biz/schema.json"
     }
   }
 }
