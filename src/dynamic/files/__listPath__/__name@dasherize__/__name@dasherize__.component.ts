@@ -40,7 +40,6 @@ export class <%=classify(name) %>Component implements OnInit {
   page: STPage;
   // #endregion
 
-
   constructor(
     public http: _HttpClient,
     private msg: NzMessageService,
@@ -118,12 +117,12 @@ export class <%=classify(name) %>Component implements OnInit {
    * 打开新增组件
    */
   add() {
-    this.drawerService.create<<%=classify(name) %>NewComponent, any, any>({
+    this.drawerService.create<<%=classify(name) %>NewComponent>({
       nzTitle: '<%=classify(name) %>NewComponent',
       nzContent: <%=classify(name) %>NewComponent,
       nzWidth: 600
     });
-}
+  }
 
 // region searchSchema form
 formSubmit($event) {
