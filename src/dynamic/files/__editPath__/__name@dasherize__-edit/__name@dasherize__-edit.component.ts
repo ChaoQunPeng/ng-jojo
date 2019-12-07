@@ -5,7 +5,7 @@ import { _HttpClient } from '@delon/theme';
 import { Workflow } from 'src/app/biz/restful/workflow';
 import { DynamicView } from 'src/app/restful/dynamic-view';
 import { SFSchema, SFComponent } from '@delon/form';
-import { WfRegTypeDocClass } from 'src/app/biz/restful/wf-reg-type-doc-class';
+import { <%=classify(module) %> } from 'src/app/biz/restful/<%=module%>';
 
 @Component({
   selector: 'app-<%=dasherize(name)%>-edit',
