@@ -2,7 +2,7 @@
   <nz-card [nzTitle]="titleTpl" [nzExtra]="extraTpl">
 
     <ng-template #titleTpl>
-      <sf #sf [schema]="searchSchema" mode="search" [formData]="formData" (formSubmit)="formSubmit($event)"
+      <sf #sf [schema]="searchSchema" mode="search" (formSubmit)="formSubmit($event)"
         (formReset)="formReset($event)"></sf>
     </ng-template>
 
