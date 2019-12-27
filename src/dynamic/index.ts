@@ -36,6 +36,7 @@ export function dynamic(options: DynamicOptions): Rule {
         newPath: MODULE.NewPath + options.module + "/",
         editPath: MODULE.EditPath + options.module + "/"
     }
+    
     const templateSource = apply(url('./files'), [
         template({
             ...stringUtils,

@@ -117,10 +117,16 @@ export class <%=classify(name) %>Component implements OnInit {
    * 打开新增组件
    */
   add() {
-    this.drawerService.create<<%=classify(name) %>NewComponent>({
-      nzTitle: '<%=classify(name) %>NewComponent',
-      nzContent: <%=classify(name) %>NewComponent,
+    const drawerRef = this.drawerService.create<TestNewComponent>({
+      nzTitle: 'TestNewComponent',
+      nzContent: TestNewComponent,
       nzWidth: 600
+    });
+
+    drawerRef.afterClose.subscribe(res => {
+      if (res) {
+        this.getPaging();
+      }
     });
   }
 
