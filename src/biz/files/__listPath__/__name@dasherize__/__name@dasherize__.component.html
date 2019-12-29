@@ -1,4 +1,3 @@
-<% if(listComponentType=='static') { %>
 <div class="pt-lg">
     <nz-card [nzTitle]="'<%=classify(name)%>'" [nzExtra]="extraTpl">
         <ng-template #extraTpl>
@@ -32,33 +31,3 @@
 
     </nz-card>
 </div>
-
-
-<app-<%=name%>-new [(isVisible)]="newIsVisible" (handleOkChange)="handleNewChange($event)">
-</app-<%=name%>-new>
-
-<app-<%=name%>-edit [(isVisible)]="editIsVisible" (handleOkChange)="handleEditChange($event)" [data]="editItem">
-</app-<%=name%>-edit>
-
-<% } else { %>
-
-<div class="pt-lg">
-    <nz-card [nzTitle]="'<%=classify(name)%>'" [nzExtra]="extraTpl">
-        <ng-template #extraTpl>
-            <button nz-button nzType="primary" (click)="add()">新增<%=classify(name)%></button>
-            <button nz-button nzShape="circle" [nzLoading]="loading" (click)="refresh()">
-                <i nz-icon nzType="reload" nzTheme="outline"></i>
-            </button>
-        </ng-template>
-
-        <st #st [data]="dataSet" *ngIf="columns.length" [widthMode]="{type: 'strict'}" [page]="page" [columns]="columns"
-            [scroll]="{x: '1300px'}" (change)="change($event)" multiSort>
-        </st>
-
-    </nz-card>
-</div>
-
-<app-<%=name%>-new [(isVisible)]="newIsVisible" (handleOkChange)="handleNewChange($event)">
-</app-<%=name%>-new>
-
-<% } %>

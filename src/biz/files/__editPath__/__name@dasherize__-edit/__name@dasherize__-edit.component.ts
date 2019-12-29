@@ -2,7 +2,6 @@
 import { Component, OnInit,  ChangeDetectionStrategy, ChangeDetectorRef, Input } from '@angular/core';
 import { NzMessageService, NzDrawerRef } from 'ng-zorro-antd';
 import { _HttpClient } from '@delon/theme';
-import { <%=classify(name)%>Service } from '<%=ListPath%><%=module%>/<%=name%>/<%=name%>.service';
 
 @Component({
   selector: 'app-<%=dasherize(name)%>-edit',
