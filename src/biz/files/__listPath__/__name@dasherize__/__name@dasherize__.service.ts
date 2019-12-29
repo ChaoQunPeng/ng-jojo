@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { _HttpClient } from '@delon/theme';
 import { NzDrawerService, NzDrawerOptions } from 'ng-zorro-antd';
-import { <%=classify(module)%> } from '<%=RestfulPath%>/<%=module %>';
+import { <%=classify(module) %> } from 'src/app/biz/restful/<%=module%>';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,7 @@ export class <%=classify(name)%>Service {
    * @param id 
    */
   del(id) {
-    return this.<%=camelize(module) %>.delete(<%=classify(module)%>ID);
+    return this.<%=camelize(module) %>.delete(id);
   }
 
 }

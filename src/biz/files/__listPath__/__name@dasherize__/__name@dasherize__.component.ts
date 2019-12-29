@@ -4,7 +4,9 @@ import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@
 import { NzMessageService, NzDrawerService } from 'ng-zorro-antd';
 import { _HttpClient } from '@delon/theme';
 import { <%=classify(module) %> } from 'src/app/biz/restful/<%=module%>';
-  
+import { <%=classify(name) %>NewComponent } from '@bizComponents/<%=module %>/<%=name %>-new/<%=name %>-new.component';
+import { <%=classify(name) %>EditComponent } from '@bizComponents/<%=module %>/<%=name %>-edit/<%=name %>-edit.component';
+
 @Component({
     selector: 'app-<%=dasherize(name)%>',
     templateUrl: './<%=dasherize(name)%>.component.html',
@@ -19,10 +21,7 @@ export class <%=classify(name) %>Component implements OnInit {
     pageSize: number = 10;
     pageCount: number = 0;
     bodyParams = {};
-  
-    newIsVisible = false;
-    editIsVisible = false;
-    editItem: any; // 编辑的数据对象
+
     loading = false;
     constructor(
       public http: _HttpClient,
@@ -58,13 +57,21 @@ export class <%=classify(name) %>Component implements OnInit {
     refresh() {
       this.getPaging();
     }
-  
     add() {
-      
+      const drawerRef = this.drawerService.create({
+        nzTitle: `新增`,
+        nzContent: ArticleNewComponent
+      });
+  
+      drawerRef.afterClose.subscribe(res => {
+        if (res) {
+          this.getPaging();
+        }
+      });
     }
   
     del(item) {
-      this.<%=camelize(module) %>.delete(item.<%=classify(module)%>ID).subscribe(res => {
+      this.article.delete(item.ArticleID).subscribe(res => {
         this.msg.success(`删除成功！`);
         this.getPaging();
         this.cdr.detectChanges();
@@ -72,7 +79,19 @@ export class <%=classify(name) %>Component implements OnInit {
     }
   
     edit(item) {
-     
+      const drawerRef = this.drawerService.create({
+        nzTitle: `编辑`,
+        nzContent: ArticleEditComponent,
+        nzContentParams: {
+          record: item
+        }
+      });
+  
+      drawerRef.afterClose.subscribe(res => {
+        if (res) {
+          this.getPaging();
+        }
+      });
     }
   
   
