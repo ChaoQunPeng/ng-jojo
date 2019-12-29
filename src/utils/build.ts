@@ -1,19 +1,13 @@
-import { Rule, Tree } from "@angular-devkit/schematics";
+import { Rule, Tree, SchematicContext } from "@angular-devkit/schematics";
 import { insertImport, getSourceFile } from "./utils";
 import { InsertChange } from "./change";
 import * as ts from '../third_party/github.com/Microsoft/TypeScript/lib/typescript';
-// import { piece3Options } from "../piece3/schema";
-
-// export function buildSmart(options: piece3Options): Rule {
-//     return chain([
-//         addImport(options),
-//         addValToVar(options.listRoutePath, 'routes', `{ path: '${options.name}', component: UsersComponent }`),
-//     ]);
-// }
+import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
+import chalk from "chalk";
 
 /**
  * Add Import `import { symbolName } from filePath` 
- * @param filePath 文件路径。要在哪个文件件添加import { symbolName } from filePath
+ * @param filePath 文件路径
  * @param symbolName 要引入组件的类名
  * @param componentPath 引入组件的路径
  */
@@ -30,13 +24,23 @@ export function addImport(filePath: string, symbolName: string, componentPath: s
     }
 }
 
+/**
+ * 
+ * @param filePath 文件名
+ * @param variableName 变量名
+ * @param text 要添加的文本
+ */
 export function addValToVar(filePath: string, variableName: string, text: string): Rule {
     return (host: Tree) => {
         let moduleSource = getSourceFile(host, filePath);
         // const allNodes = getSourceNodes(moduleSource);
+        // console.log(`allNodes`)
+        // console.log(allNodes[0])
         // allNodes[0].parent as any
 
         const node = findNode(moduleSource, ts.SyntaxKind.Identifier, variableName) as ts.Node;
+        // console.log(`node`);
+        // console.log(node);
 
         const arr = (node.parent as any).initializer as ts.ArrayLiteralExpression;
 
@@ -52,6 +56,36 @@ export function addValToVar(filePath: string, variableName: string, text: string
         return host;
     }
 }
+
+/**
+ * 添加package.json依赖并执行下载任务
+ * @param packageObj { pkgName: string, version: string } 的数组
+ */
+export function addPackageJsonDependency(packageObj: { pkgName: string, version: string }[]) {
+    return (host: Tree, _context: SchematicContext) => {
+        const jsonStr = host.read('package.json')!.toString('utf-8');
+        const json = JSON.parse(jsonStr);
+        const type = 'dependencies';
+        if (!json[type]) {
+            json[type] = {};
+        }
+
+        packageObj.forEach(e => {
+            if (!json[type][e.pkgName]) {
+                json[type][e.pkgName] = e.version;
+                host.overwrite('package.json', JSON.stringify(json, null, 2));
+                console.log(`${chalk.cyan(`Add Downloading Task=> ${e.pkgName}  version:${e.version}`)}`)
+            }
+        });
+        _context.addTask(new NodePackageInstallTask());
+        return host;
+    };
+}
+
+
+
+/**************************** 下面这些一般不予理会 ********************************* */
+
 
 /**
  * Get all the nodes from a source.
