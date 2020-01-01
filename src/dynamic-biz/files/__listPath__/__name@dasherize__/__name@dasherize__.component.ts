@@ -6,8 +6,8 @@ import { STColumn, STPage, STComponent } from '@delon/abc';
 import { SFSchema, SFComponent } from '@delon/form';
 import { STPageConfig, PagingConfig } from '@core/config/ST.config';
 import { <%=classify(module) %> } from 'src/app/biz/restful/<%=module%>';
-import { <%=classify(name) %>NewComponent } from '@bizComponents/<%=module %>/<%=name %>-new/<%=name %>-new.component';
-import { <%=classify(name) %>EditComponent } from '@bizComponents/<%=module %>/<%=name %>-edit/<%=name %>-edit.component';
+import { <%=classify(name) %> NewComponent } from '@bizComponents/<%=module %>/<%=name %>-new/<%=name %>-new.component';
+import { <%=classify(name) %> EditComponent } from '@bizComponents/<%=module %>/<%=name %>-edit/<%=name %>-edit.component';
 
 @Component({
   selector: 'app-<%=dasherize(name)%>',
@@ -71,7 +71,7 @@ export class <%=classify(name) %>Component implements OnInit {
       //         drawer: {
       //           title: "编辑",
       //           size: 600,
-      //           component: <%=classify(name) %>NewComponent
+      //           component: <%=classify(name) %>EditComponent
       //         },
       //         click: (record, callback) => {
       //           if (callback) {
@@ -118,17 +118,17 @@ export class <%=classify(name) %>Component implements OnInit {
    */
   add() {
     const drawerRef = this.drawerService.create<TestNewComponent>({
-      nzTitle: 'TestNewComponent',
-      nzContent: TestNewComponent,
+      nzTitle: '<%=classify(name) %> NewComponent',
+      nzContent: <%=classify(name) %> NewComponent,
       nzWidth: 600
     });
 
-    drawerRef.afterClose.subscribe(res => {
-      if (res) {
-        this.getPaging();
-      }
-    });
-  }
+  drawerRef.afterClose.subscribe(res => {
+    if (res) {
+      this.getPaging();
+    }
+  });
+}
 
 // region searchSchema form
 formSubmit($event) {
