@@ -6,8 +6,8 @@ import { STColumn, STPage, STComponent } from '@delon/abc';
 import { SFSchema, SFComponent } from '@delon/form';
 import { STPageConfig, PagingConfig } from '@core/config/ST.config';
 import { <%=classify(module) %> } from 'src/app/biz/restful/<%=module%>';
-import { <%=classify(name) %> NewComponent } from '@bizComponents/<%=module %>/<%=name %>-new/<%=name %>-new.component';
-import { <%=classify(name) %> EditComponent } from '@bizComponents/<%=module %>/<%=name %>-edit/<%=name %>-edit.component';
+import { <%=classify(name) %>NewComponent } from '@bizComponents/<%=module %>/<%=name %>-new/<%=name %>-new.component';
+import { <%=classify(name) %>EditComponent } from '@bizComponents/<%=module %>/<%=name %>-edit/<%=name %>-edit.component';
 
 @Component({
   selector: 'app-<%=dasherize(name)%>',
@@ -16,7 +16,7 @@ import { <%=classify(name) %> EditComponent } from '@bizComponents/<%=module %>/
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class <%=classify(name) %> Component implements OnInit {
+export class <%=classify(name) %>Component implements OnInit {
   @ViewChild('sf', { static: false }) sf: SFComponent;
   @ViewChild('st', { static: false }) st: STComponent;
   dynamicView = new DynamicView(this.http);
@@ -117,9 +117,9 @@ export class <%=classify(name) %> Component implements OnInit {
    * 打开新增组件
    */
   add() {
-    const drawerRef = this.drawerService.create<TestNewComponent>({
+    const drawerRef = this.drawerService.create({
       nzTitle: '<%=classify(name) %>NewComponent',
-      nzContent: <%=classify(name) %> NewComponent,
+      nzContent: <%=classify(name) %>NewComponent,
       nzWidth: 600
     });
 
