@@ -8,6 +8,7 @@ import { STPageConfig, PagingConfig } from '@core/config/ST.config';
 import { <%=classify(module) %> } from 'src/app/biz/restful/<%=module%>';
 import { <%=classify(name) %>NewComponent } from '@bizComponents/<%=module %>/<%=name %>-new/<%=name %>-new.component';
 import { <%=classify(name) %>EditComponent } from '@bizComponents/<%=module %>/<%=name %>-edit/<%=name %>-edit.component';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-<%=dasherize(name)%>',
@@ -54,8 +55,11 @@ export class <%=classify(name) %>Component implements OnInit {
     this.total = PagingConfig.total;
     this.getPaging();
 
-    this.dynamicView.getForm('动态表单名称').subscribe(res => {
+    forkJoin([
+      this.dynamicView.getForm('动态表单名称')
+    ]).subscribe(([res]) => {
       this.searchSchema = JSON.parse(res.Columns);
+      // this.searchSchema.properties[""].enum = {};
       this.sf.refreshSchema(this.searchSchema);
     });
 

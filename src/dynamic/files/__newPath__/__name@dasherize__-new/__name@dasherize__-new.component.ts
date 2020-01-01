@@ -4,6 +4,7 @@ import { _HttpClient } from '@delon/theme';
 import { DynamicView } from 'src/app/restful/dynamic-view';
 import { <%=classify(module) %> } from 'src/app/biz/restful/<%=module%>';
 import { SFSchema, SFComponent } from '@delon/form';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-<%=dasherize(name)%>-new',
@@ -18,7 +19,7 @@ export class <%=classify(name) %>NewComponent implements OnInit {
   
   <%=camelize(module) %> = new <%=classify(module) %>(this.http);
 
-  schema: SFSchema={
+  searchSchema: SFSchema={
     properties:{
 
     }
@@ -33,10 +34,12 @@ export class <%=classify(name) %>NewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.dynamicView.getForm("表单名称").subscribe(res => {
-      this.schema = JSON.parse(res.Columns);
-      this.sf.refreshSchema(this.schema);
-      this.cdf.detectChanges();
+    forkJoin([
+      this.dynamicView.getForm('动态表单名称')
+    ]).subscribe(([res]) => {
+      this.searchSchema = JSON.parse(res.Columns);
+      // this.searchSchema.properties[""].enum = {};
+      this.sf.refreshSchema(this.searchSchema);
     });
   }
 
