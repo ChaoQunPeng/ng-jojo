@@ -135,6 +135,14 @@ export class <%=classify(name) %>Component implements OnInit {
   });
 }
 
+del(item) {
+  this.<%=camelize(module) %>.delete(item.<%=classify(name) %>ID).subscribe(res => {
+    this.msg.success(`删除成功！`);
+    this.getPaging();
+    this.cdr.detectChanges();
+  });
+}
+
 // region searchSchema form
 formSubmit($event) {
   this.bodyParams = $event;

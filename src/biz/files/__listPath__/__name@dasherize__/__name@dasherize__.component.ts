@@ -71,7 +71,7 @@ export class <%=classify(name) %>Component implements OnInit {
     }
   
     del(item) {
-      this.<%=classify(module) %>.delete(item.<%=classify(name) %>ID).subscribe(res => {
+      this.<%=camelize(module) %>.delete(item.<%=classify(name) %>ID).subscribe(res => {
         this.msg.success(`删除成功！`);
         this.getPaging();
         this.cdr.detectChanges();
