@@ -1,6 +1,6 @@
 {
   "name": "ng-jojo",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "A blank schematics",
   "scripts": {
     "build": "tsc -p tsconfig.json",
