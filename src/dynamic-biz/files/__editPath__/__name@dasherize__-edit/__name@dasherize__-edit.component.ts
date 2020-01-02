@@ -22,7 +22,7 @@ export class <%=classify(name) %>EditComponent implements OnInit {
   dynamicView = new DynamicView(this.http);
   <%=camelize(module) %> = new <%=classify(module) %>(this.http);
 
-  searchSchema: SFSchema = {
+  schema: SFSchema = {
     properties: {
     }
   };
@@ -41,9 +41,9 @@ export class <%=classify(name) %>EditComponent implements OnInit {
     forkJoin([
       this.dynamicView.getForm('动态表单名称')
     ]).subscribe(([res]) => {
-      this.searchSchema = JSON.parse(res.Columns);
+      this.schema = JSON.parse(res.Columns);
       // this.searchSchema.properties[""].enum = {};
-      this.sf.refreshSchema(this.searchSchema);
+      this.sf.refreshSchema(this.schema);
     });
   }
 

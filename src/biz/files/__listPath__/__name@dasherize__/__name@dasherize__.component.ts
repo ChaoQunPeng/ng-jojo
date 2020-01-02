@@ -60,7 +60,7 @@ export class <%=classify(name) %>Component implements OnInit {
     add() {
       const drawerRef = this.drawerService.create({
         nzTitle: `新增`,
-        nzContent: ArticleNewComponent
+        nzContent: <%=classify(name) %>NewComponent
       });
   
       drawerRef.afterClose.subscribe(res => {
@@ -71,7 +71,7 @@ export class <%=classify(name) %>Component implements OnInit {
     }
   
     del(item) {
-      this.article.delete(item.ArticleID).subscribe(res => {
+      this.<%=classify(module) %>.delete(item.<%=classify(name) %>ID).subscribe(res => {
         this.msg.success(`删除成功！`);
         this.getPaging();
         this.cdr.detectChanges();
@@ -81,7 +81,7 @@ export class <%=classify(name) %>Component implements OnInit {
     edit(item) {
       const drawerRef = this.drawerService.create({
         nzTitle: `编辑`,
-        nzContent: ArticleEditComponent,
+        nzContent: <%=classify(name) %>EditComponent,
         nzContentParams: {
           record: item
         }

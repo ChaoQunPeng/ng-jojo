@@ -19,7 +19,7 @@ export class <%=classify(name) %>NewComponent implements OnInit {
   
   <%=camelize(module) %> = new <%=classify(module) %>(this.http);
 
-  searchSchema: SFSchema={
+  schema: SFSchema={
     properties:{
 
     }
@@ -37,9 +37,9 @@ export class <%=classify(name) %>NewComponent implements OnInit {
     forkJoin([
       this.dynamicView.getForm('动态表单名称')
     ]).subscribe(([res]) => {
-      this.searchSchema = JSON.parse(res.Columns);
-      // this.searchSchema.properties[""].enum = {};
-      this.sf.refreshSchema(this.searchSchema);
+      this.schema = JSON.parse(res.Columns);
+      // this.schema.properties[""].enum = {};
+      this.sf.refreshSchema(this.schema);
     });
   }
 
