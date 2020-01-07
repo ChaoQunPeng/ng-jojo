@@ -1,14 +1,10 @@
-export interface DynamicOptions {
-    name: string;
-    module: string;
-    operaComponent?: string;
-    listPath?: string;
-    listModPath?: string;
-    listRoutePath?: string;
-    editPath: string;
-    newPath: string;
-    componentName?: string;
-    componentPath?: string;
-    filePath?: string;
-    isBiz?: boolean;
+export interface SchemaOptions {
+  path: string;
+  name: string;
+  module: string;
+  tabTitle: string;
+  searchFormName: string;
+  tableName: string;
+  newFormName: string;
+  editFormName: string;
 }

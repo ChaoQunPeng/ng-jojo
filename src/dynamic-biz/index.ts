@@ -1,7 +1,7 @@
-import { chain, Rule, apply, url, template, branchAndMerge, mergeWith } from '@angular-devkit/schematics';
+import { chain, Rule, apply, url, template, branchAndMerge, mergeWith, filter, noop } from '@angular-devkit/schematics';
 import { classify, dasherize, camelize, underscore } from '@angular-devkit/core/src/utils/strings';
 import { TreeManagerOptions } from "./schema";
-import { addImport, addValToVar } from '../utils/build'; // buildSmart 
+// import { addImport, addValToVar } from '../utils/build'; // buildSmart 
 import { Biz, Routes } from '../utils/config';
 
 
@@ -12,12 +12,12 @@ export function main(options: TreeManagerOptions): Rule {
     // 是业务模块还是框架模块
     const MODULE = options.isBiz ? Biz : Routes;
 
-    const childrenPath = options.isBiz ? '/page' : ''; // 这里实在是蛋疼，biz下多了个page文件夹
+    // const childrenPath = options.isBiz ? '/page' : ''; // 这里实在是蛋疼，biz下多了个page文件夹
 
-    const bizChildren = {
-        ChildrenPath: MODULE.RoutingModuleChildrenPath,
-        symbolName: `{ path: '${options.module}', loadChildren: () => import('.${childrenPath}/${options.module}/${options.module}.module').then(m => m.${classify(options.module)}Module) }`
-    }
+    // const bizChildren = {
+    //     ChildrenPath: MODULE.RoutingModuleChildrenPath,
+    //     symbolName: `{ path: '${options.module}', loadChildren: () => import('.${childrenPath}/${options.module}/${options.module}.module').then(m => m.${classify(options.module)}Module) }`
+    // }
 
     // const listOptions = {
     //     modPath: `${options.listPath}${options.module}/${options.module}.module.ts`,
@@ -27,17 +27,17 @@ export function main(options: TreeManagerOptions): Rule {
     //     route: `{ path: '${options.name}', component: ${classify(options.name)}Component }`
     // };
 
-    const newOptions = {
-        sharedModulePath: MODULE.SharedModulePath,
-        symbolName: `${classify(options.name)}NewComponent`,
-        componentPath: `./components/${options.module}/${options.name}-new/${options.name}-new.component`,
-    };
+    // const newOptions = {
+    //     sharedModulePath: MODULE.SharedModulePath,
+    //     symbolName: `${classify(options.name)}NewComponent`,
+    //     componentPath: `./components/${options.module}/${options.name}-new/${options.name}-new.component`,
+    // };
 
-    const editOptions = {
-        sharedModulePath: MODULE.SharedModulePath,
-        symbolName: `${classify(options.name)}EditComponent`,
-        componentPath: `./components/${options.module}/${options.name}-edit/${options.name}-edit.component`,
-    };
+    // const editOptions = {
+    //     sharedModulePath: MODULE.SharedModulePath,
+    //     symbolName: `${classify(options.name)}EditComponent`,
+    //     componentPath: `./components/${options.module}/${options.name}-edit/${options.name}-edit.component`,
+    // };
 
     const templateOption = {
         name: options.name,
@@ -57,30 +57,33 @@ export function main(options: TreeManagerOptions): Rule {
     }
 
     const templateSource = apply(url('./files'), [
+        true ? noop() : filter(ext => !ext.endsWith('-routing.module.ts')),
+        true ? noop() : filter(ext => !ext.endsWith('module.ts')),
         template({
             ...stringUtils,
             ...templateOption
         })
-    ]);
+    ]
+    );
 
     return chain([
         branchAndMerge(chain([
             mergeWith(templateSource),
-            addValToVar(bizChildren.ChildrenPath, MODULE.RoutingModuleChildrenVarName, bizChildren.symbolName),
-            // //list module.ts
-            // addImport(listOptions.modPath, listOptions.symbolName, listOptions.componentPath),
-            // addValToVar(listOptions.modPath, "COMPONENTS", listOptions.symbolName),
-            // //list routing-module.ts
-            // addImport(listOptions.routeModPath, listOptions.symbolName, listOptions.componentPath),
-            // addValToVar(listOptions.routeModPath, "routes", listOptions.route),
+            // addValToVar(bizChildren.ChildrenPath, MODULE.RoutingModuleChildrenVarName, bizChildren.symbolName),
+            // // //list module.ts
+            // // addImport(listOptions.modPath, listOptions.symbolName, listOptions.componentPath),
+            // // addValToVar(listOptions.modPath, "COMPONENTS", listOptions.symbolName),
+            // // //list routing-module.ts
+            // // addImport(listOptions.routeModPath, listOptions.symbolName, listOptions.componentPath),
+            // // addValToVar(listOptions.routeModPath, "routes", listOptions.route),
 
-            //new module.ts
-            addImport(newOptions.sharedModulePath, newOptions.symbolName, newOptions.componentPath),
-            addValToVar(newOptions.sharedModulePath, "COMPONENTS", newOptions.symbolName),
+            // //new module.ts
+            // addImport(newOptions.sharedModulePath, newOptions.symbolName, newOptions.componentPath),
+            // addValToVar(newOptions.sharedModulePath, "COMPONENTS", newOptions.symbolName),
 
-            //edit module.ts
-            addImport(editOptions.sharedModulePath, editOptions.symbolName, editOptions.componentPath),
-            addValToVar(editOptions.sharedModulePath, "COMPONENTS", editOptions.symbolName)
+            // //edit module.ts
+            // addImport(editOptions.sharedModulePath, editOptions.symbolName, editOptions.componentPath),
+            // addValToVar(editOptions.sharedModulePath, "COMPONENTS", editOptions.symbolName)
         ]))
     ]);
 }

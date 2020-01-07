@@ -22,7 +22,7 @@
     },
     "dynamic": {
       "description": "dynamic",
-      "factory": "./dynamic/index#dynamic",
+      "factory": "./dynamic/index#main",
       "schema": "./dynamic/schema.json"
     },
     "tree-manager-biz": {
