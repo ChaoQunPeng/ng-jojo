@@ -1,8 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { NzMessageService, NzDrawerRef } from 'ng-zorro-antd';
 import { _HttpClient } from '@delon/theme';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { <%=classify(module) %> ApiService } from '../../<%=module%>-api.service';
+import { <%=classify(module) %>ApiService } from '../../<%=module%>-api.service';
 
 @Component({
   selector: 'app-<%=name%>-edit',
@@ -10,7 +9,7 @@ import { <%=classify(module) %> ApiService } from '../../<%=module%>-api.service
   // styleUrls: ['./<%=name%>.component.less'],
   // changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class <%=classify(module) %>EditComponent implements OnInit {
+export class <%=classify(name) %>EditComponent implements OnInit {
   @Input() record: any;
 
   loading = false;

@@ -1,1 +1,20 @@
-<%=classify(name)%>
+<div class="pt-lg">
+  <nz-card [nzTitle]="titleTpl" [nzExtra]="extraTpl">
+
+    <ng-template #titleTpl>
+      <sf #sf [schema]="searchSchema" mode="search" [formData]="formData" (formSubmit)="formSubmit($event)"
+        (formReset)="formReset($event)"></sf>
+    </ng-template>
+
+    <ng-template #extraTpl>
+      <button nz-button nzType="primary" (click)="add()">新增<%=classify(tabTitle) %></button>
+      <button nz-button nzShape="circle" [nzLoading]="loading" (click)="refresh()">
+        <i nz-icon nzType="reload" nzTheme="outline"></i>
+      </button>
+    </ng-template>
+
+    <st #st [data]="data" *ngIf="columns.length" [columns]="columns" [page]="page" [pi]="pi" [ps]="ps"
+      [total]="total" [loading]="loading" [widthMode]="{ type: 'strict' }"></st>
+
+  </nz-card>
+</div>

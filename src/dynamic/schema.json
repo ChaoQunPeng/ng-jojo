@@ -61,6 +61,10 @@
       "type": "string",
       "description": "table name",
       "x-prompt": "编辑表单的名字:"
+    },
+    "isInit": {
+      "type": "boolean",
+      "description": "Is Init"
     }
   },
   "required": [

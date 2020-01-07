@@ -4,11 +4,12 @@ import { _HttpClient } from '@delon/theme';
 import { DynamicView } from 'src/app/restful/dynamic-view';
 import { STColumn, STPage, STComponent } from '@delon/abc';
 import { SFSchema, SFComponent } from '@delon/form';
+import { forkJoin } from 'rxjs/internal/observable/forkJoin';
 import { STPageConfig, PagingConfig } from '@core/config/ST.config';
 import { <%=classify(module) %> } from 'src/app/biz/restful/<%=module%>';
 import { <%=classify(name) %>NewComponent } from '@bizComponents/<%=module %>/<%=name %>-new/<%=name %>-new.component';
 import { <%=classify(name) %>EditComponent } from '@bizComponents/<%=module %>/<%=name %>-edit/<%=name %>-edit.component';
-import { forkJoin } from 'rxjs';
+
 
 @Component({
   selector: 'app-<%=dasherize(name)%>',

@@ -9,7 +9,7 @@ import { <%=classify(module)%>ApiService } from '../../<%=module%>-api.service';
   // styleUrls: ['./<%=name%>.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class <%=classify(module)%>NewComponent implements OnInit {
+export class <%=classify(name)%>NewComponent implements OnInit {
 
   loading = false;
   constructor(
