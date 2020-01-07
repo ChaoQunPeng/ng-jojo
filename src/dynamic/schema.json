@@ -4,6 +4,19 @@
   "title": "dynamic",
   "type": "object",
   "properties": {
+    "path": {
+      "type": "string",
+      "format": "path",
+      "description": "The path to create the component.",
+      "visible": false
+    },
+    "project": {
+      "type": "string",
+      "description": "The name of the project.",
+      "$default": {
+        "$source": "projectName"
+      }
+    },
     "name": {
       "type": "string",
       "description": "component name",
