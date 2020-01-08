@@ -17,16 +17,6 @@
         "$source": "projectName"
       }
     },
-    "name": {
-      "type": "string",
-      "description": "component name",
-      "alias": "n",
-      "$default": {
-        "$source": "argv",
-        "index": 0
-      },
-      "x-prompt": "组件名称："
-    },
     "module": {
       "type": "string",
       "description": "module name",
@@ -36,6 +26,16 @@
         "index": 1
       },
       "x-prompt": "模块名称(不存在则创建此模块):"
+    },
+    "name": {
+      "type": "string",
+      "description": "component name",
+      "alias": "n",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "组件名称："
     },
     "tabTitle": {
       "type": "string",

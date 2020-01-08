@@ -16,18 +16,13 @@ export function main(options: SchemaOptions): Rule {
     config.childrenPath(options.module);
 
     if (options.path === undefined) {
-      console.log(`before createDefaultPath`)
-      console.log(options.path)
       // options.path = await createDefaultPath(host, options.project as string);
       // options.path = options.path + '/biz/page/';
       options.path = config.basePath + '/';
-      console.log(`after createDefaultPath`)
-      console.log(options.path)
     }
 
     const parsedPath = parseName(options.path, options.name);
-    console.log(`parsedPath`)
-    console.log(parsedPath)
+
     options.path = parsedPath.path;
 
     const templateOptions: SchemaOptions = {
@@ -40,8 +35,7 @@ export function main(options: SchemaOptions): Rule {
       newFormName: options.newFormName,
       editFormName: options.editFormName
     }
-    console.log(`options`)
-    console.log(options)
+
     const templateSource = apply(url('./files'), [
       options.init ? noop() : filter(ext => !ext.endsWith('-api.service.ts')),
       options.init ? noop() : filter(ext => !ext.endsWith('-routing.module.ts')),
