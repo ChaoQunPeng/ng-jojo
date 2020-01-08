@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { CommonDictComponent } from './<%=name%>.component';
+import { <%=classify(name)%>Component } from './<%=name%>.component';
 
 describe('<%=classify(name)%>Component', () => {
   let component: <%=classify(name)%>Component;

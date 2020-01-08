@@ -7,5 +7,7 @@ export interface SchemaOptions {
   tableName: string;
   newFormName: string;
   editFormName: string;
-  isInit?: boolean;
+  init?: boolean;
+  project?: any;
+  isBiz?: boolean;
 }

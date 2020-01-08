@@ -62,9 +62,14 @@
       "description": "table name",
       "x-prompt": "编辑表单的名字:"
     },
-    "isInit": {
+    "init": {
       "type": "boolean",
       "description": "Is Init"
+    },
+    "isBiz": {
+      "type": "boolean",
+      "description": "Is in Biz path",
+      "default": true
     }
   },
   "required": [

@@ -35,6 +35,7 @@ export class <%=classify(name) %>Component implements OnInit {
   ps: number;
   total: number;
   page: STPage;
+  params: any;
   // #endregion
 
   constructor(
@@ -84,7 +85,7 @@ export class <%=classify(name) %>Component implements OnInit {
 
   del(item) {
     this.loading = true;
-    this.<%=camelize(module) %> ApiService.del(item.<%=classify(module) %>ID).subscribe(res => {
+    this.<%=camelize(module) %>ApiService.del(item.<%=classify(module) %>ID).subscribe(res => {
       this.msg.success(`删除成功！`);
       this.loading = false;
     });
@@ -110,10 +111,7 @@ export class <%=classify(name) %>Component implements OnInit {
               },
               click: (record, callback) => {
                 if (callback) {
-                  this.<%=camelize(module) %> ApiService.getPaging(this.pi, this.ps, this.params).subscribe(res => {
-                    this.data = paging.result;
-                    this.total = paging.page.count;
-                  });
+                  this.getPaging();
                 }
               }
             },
@@ -133,6 +131,25 @@ export class <%=classify(name) %>Component implements OnInit {
       this.cdr.detectChanges();
     });
   }
+
+  getPaging(){
+    this.<%=camelize(module) %>ApiService.getPaging(this.pi, this.ps, this.params).subscribe(res => {
+      this.data = res.result;
+      this.total = res.page.count;
+    });
+  }
+
+  // region searchSchema form
+  formSubmit($event) {
+    this.params = $event;
+    this.getPaging();
+  }
+
+  formReset($event) {
+    this.params = { };
+    this.getPaging();
+  }
+  // #endregion
 
   reload() {
     this.getDynamicTable();

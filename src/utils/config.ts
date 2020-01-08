@@ -1,3 +1,5 @@
+import { classify } from "@angular-devkit/core/src/utils/strings";
+
 export const Biz = {
     RoutingModuleChildrenPath: `src/app/biz/biz-children.ts`,
     RoutingModuleChildrenVarName: `BizModuleChildren`,
@@ -22,4 +24,47 @@ export const Routes = {
     ListPath: `src/app/routes/`,
     NewPath: `src/app/shared/components/`,
     EditPath: `src/app/shared/components/`
+}
+
+// export const Config = {
+//     biz: {
+//         filePath: `src/app/biz/biz-children.ts`,
+//         variableName: `BizModuleChildren`,
+//         text: ``,
+//         basePath: `src/app/biz/page`
+//     },
+//     routes: {
+//         filePath: `src/app/routes/routes.children.ts`,
+//         variableName: `LayoutChildren`,
+//         text: ``,
+//         basePath: ``
+//     }
+// }
+
+export const bizConfig: BaseCfgInterface = {
+    filePath: `src/app/biz/biz-children.ts`,
+    variableName: `BizModuleChildren`,
+    text: ``,
+    basePath: `src/app/biz/page`,
+    childrenPath: (module: string) => {
+        return bizConfig.text = `{ path: '${module}', loadChildren: () => import('./page/${module}/${module}.module').then(m => m.${classify(module)}Module) }`;
+    }
+}
+
+export const routeConfig: BaseCfgInterface = {
+    filePath: `src/app/routes/routes.children.ts`,
+    variableName: `LayoutChildren`,
+    text: ``,
+    basePath: `src/app/routes`,
+    childrenPath: (module: string) => {
+        return routeConfig.text = `{ path: '${module}', loadChildren: () => import('./${module}/${module}.module').then(m => m.${classify(module)}Module) }`;
+    }
+}
+
+export interface BaseCfgInterface {
+    filePath: string;
+    variableName: string;
+    text: string;
+    basePath: string;
+    childrenPath: Function;
 }

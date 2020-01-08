@@ -9,7 +9,7 @@ const DRAWERWIDTH = 600;
 @Injectable({
   providedIn: 'root'
 })
-export class <%=classify(name)%>Service {
+export class <%=classify(module)%>Service {
 
   constructor(
     private drawerService: NzDrawerService

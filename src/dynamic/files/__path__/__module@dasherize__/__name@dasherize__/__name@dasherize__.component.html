@@ -2,13 +2,13 @@
   <nz-card [nzTitle]="titleTpl" [nzExtra]="extraTpl">
 
     <ng-template #titleTpl>
-      <sf #sf [schema]="searchSchema" mode="search" [formData]="formData" (formSubmit)="formSubmit($event)"
+      <sf #sf [schema]="searchSchema" mode="search" (formSubmit)="formSubmit($event)"
         (formReset)="formReset($event)"></sf>
     </ng-template>
 
     <ng-template #extraTpl>
       <button nz-button nzType="primary" (click)="add()">新增<%=classify(tabTitle) %></button>
-      <button nz-button nzShape="circle" [nzLoading]="loading" (click)="refresh()">
+      <button nz-button nzShape="circle" [nzLoading]="loading" (click)="reload()">
         <i nz-icon nzType="reload" nzTheme="outline"></i>
       </button>
     </ng-template>
