@@ -8,7 +8,6 @@ import { DynamicViewApiService } from 'src/app/routes/dynamic/dynamic-view-api.s
 import { forkJoin } from 'rxjs/internal/observable/forkJoin';
 import { <%=classify(module) %>ApiService } from '../<%=module%>-api.service';
 import { <%=classify(module) %>Service } from "../<%=module%>.service";
-import { <%=classify(name) %>NewComponent } from './<%=name%>-new/<%=name%>-new.component';
 import { <%=classify(name) %>EditComponent } from './<%=name%>-edit/<%=name%>-edit.component';
 
 
@@ -68,26 +67,15 @@ export class <%=classify(name) %>Component implements OnInit {
 
     drawerRef.afterClose.subscribe(res => {
       if (res) {
-
-      }
-    });
-  }
-
-  edit(item) {
-    const drawerRef = this.<%=camelize(module) %>Service.createEditDrawer(item);
-
-    drawerRef.afterClose.subscribe(res => {
-      if (res) {
-
+        this.getPaging();
       }
     });
   }
 
   del(item) {
-    this.loading = true;
     this.<%=camelize(module) %>ApiService.del(item.<%=classify(module) %>ID).subscribe(res => {
       this.msg.success(`删除成功！`);
-      this.loading = false;
+      this.getPaging();
     });
   }
 
@@ -106,7 +94,7 @@ export class <%=classify(name) %>Component implements OnInit {
               type: "drawer",
               drawer: {
                 title: "编辑",
-                size: 1000,
+                size: 600,
                 component: <%=classify(name) %>EditComponent
               },
               click: (record, callback) => {
@@ -133,13 +121,16 @@ export class <%=classify(name) %>Component implements OnInit {
   }
 
   getPaging(){
+    this.loading = true;
+    this.cdr.detectChanges();
     this.<%=camelize(module) %>ApiService.getPaging(this.pi, this.ps, this.params).subscribe(res => {
       this.data = res.result;
       this.total = res.page.count;
+      this.loading = false;
+      this.cdr.detectChanges();
     });
   }
 
-  // region searchSchema form
   formSubmit($event) {
     this.params = $event;
     this.getPaging();
@@ -149,9 +140,9 @@ export class <%=classify(name) %>Component implements OnInit {
     this.params = { };
     this.getPaging();
   }
-  // #endregion
 
   reload() {
     this.getDynamicTable();
+    this.getPaging();
   }
 }
