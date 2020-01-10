@@ -15,11 +15,6 @@
       "factory": "./piece3/index#piece3",
       "schema": "./piece3/schema.json"
     },
-    "drawer": {
-      "description": "drawer",
-      "factory": "./drawer/index#drawer",
-      "schema": "./drawer/schema.json"
-    },
     "dynamic": {
       "description": "dynamic",
       "factory": "./dynamic/index#main",

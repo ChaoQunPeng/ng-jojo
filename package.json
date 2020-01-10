@@ -20,5 +20,8 @@
     "chalk": "^2.4.2",
     "jasmine": "^3.3.1",
     "typescript": "~3.4.3"
+  },
+  "devDependencies": {
+    "@angular-devkit/schematics-cli": "^0.803.22"
   }
 }

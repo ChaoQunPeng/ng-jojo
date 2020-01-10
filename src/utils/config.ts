@@ -48,7 +48,8 @@ export const bizConfig: BaseCfgInterface = {
     basePath: `src/app/biz/page`,
     childrenPath: (module: string) => {
         return bizConfig.text = `{ path: '${module}', loadChildren: () => import('./page/${module}/${module}.module').then(m => m.${classify(module)}Module) }`;
-    }
+    },
+    modulePath: `src/app/biz/biz.module.ts`
 }
 
 export const routeConfig: BaseCfgInterface = {
@@ -58,7 +59,8 @@ export const routeConfig: BaseCfgInterface = {
     basePath: `src/app/routes`,
     childrenPath: (module: string) => {
         return routeConfig.text = `{ path: '${module}', loadChildren: () => import('./${module}/${module}.module').then(m => m.${classify(module)}Module) }`;
-    }
+    },
+    modulePath: `src/app/routes/routes.module.ts`
 }
 
 export interface BaseCfgInterface {
@@ -67,4 +69,14 @@ export interface BaseCfgInterface {
     text: string;
     basePath: string;
     childrenPath: Function;
+    modulePath: string;
+}
+
+export const CONFIG = {
+    routes: {
+
+    } as BaseCfgInterface,
+    biz: {
+
+    } as BaseCfgInterface
 }

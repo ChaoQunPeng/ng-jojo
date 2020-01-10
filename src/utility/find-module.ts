@@ -77,7 +77,7 @@ export function findModuleFromOptions(host: Tree, options: ModuleOptions): Path 
 
     throw new Error(
       `Specified module '${options.module}' does not exist.\n`
-        + `Looked in the following directories:\n    ${candidatesDirs.join('\n    ')}`,
+      + `Looked in the following directories:\n    ${candidatesDirs.join('\n    ')}`,
     );
   }
 }
@@ -86,7 +86,7 @@ export function findModuleFromOptions(host: Tree, options: ModuleOptions): Path 
  * Function to find the "closest" module to a generated file's path.
  */
 export function findModule(host: Tree, generateDir: string,
-                           moduleExt = MODULE_EXT, routingModuleExt = ROUTING_MODULE_EXT): Path {
+  moduleExt = MODULE_EXT, routingModuleExt = ROUTING_MODULE_EXT): any {
 
   let dir: DirEntry | null = host.getDir('/' + generateDir);
   let foundRoutingModule = false;
@@ -94,11 +94,18 @@ export function findModule(host: Tree, generateDir: string,
   while (dir) {
     const allMatches = dir.subfiles.filter(p => p.endsWith(moduleExt));
     const filteredMatches = allMatches.filter(p => !p.endsWith(routingModuleExt));
-
+    console.log(`allMatches`)
+    console.log(allMatches)
+    console.log(`filteredMatches`)
+    console.log(filteredMatches)
     foundRoutingModule = foundRoutingModule || allMatches.length !== filteredMatches.length;
 
     if (filteredMatches.length == 1) {
-      return join(dir.path, filteredMatches[0]);
+      const modulePaths = [
+        join(dir.path, filteredMatches[0]),
+        join(dir.path, filteredMatches[1]),
+      ];
+      return modulePaths;
     } else if (filteredMatches.length > 1) {
       throw new Error('More than one module matches. Use skip-import option to skip importing '
         + 'the component into the closest module.');
@@ -131,7 +138,7 @@ export function buildRelativePath(from: string, to: string): string {
   const toFileName = toParts.pop();
 
   const relativePath = relative(normalize(fromParts.join('/') || '/'),
-   normalize(toParts.join('/') || '/'));
+    normalize(toParts.join('/') || '/'));
   let pathPrefix = '';
 
   // Set the path prefix for same dir or child dir, parent dir starts with `..`
