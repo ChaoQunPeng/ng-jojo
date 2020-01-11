@@ -5,16 +5,6 @@
       "description": "A blank schematic.",
       "factory": "./ng-add/index#ngJojo"
     },
-    "biz": {
-      "description": "biz",
-      "factory": "./biz/index#biz",
-      "schema": "./biz/schema.json"
-    },
-    "piece3": {
-      "description": "piece3",
-      "factory": "./piece3/index#piece3",
-      "schema": "./piece3/schema.json"
-    },
     "dynamic": {
       "description": "dynamic",
       "factory": "./dynamic/index#main",
@@ -29,11 +19,6 @@
       "description": "tree-manager",
       "factory": "./tree-manager/index#treeManager",
       "schema": "./tree-manager/schema.json"
-    },
-    "dynamic-biz": {
-      "description": "dynamic-biz",
-      "factory": "./dynamic-biz/index#main",
-      "schema": "./dynamic-biz/schema.json"
     }
   }
 }
