@@ -10,7 +10,7 @@ import { <%=classify(module) %>ApiService } from '../../<%=module%>-api.service'
   selector: 'app-<%=name%>-edit',
   templateUrl: './<%=name%>-edit.component.html',
   // styleUrls: ['./<%=name%>.component.less'],
-  // changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class <%=classify(name) %>EditComponent implements OnInit {
   @ViewChild('sf', { static: false }) sf: SFComponent;

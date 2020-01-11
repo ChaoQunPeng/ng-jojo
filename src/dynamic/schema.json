@@ -64,7 +64,8 @@
     },
     "init": {
       "type": "boolean",
-      "description": "Is Init"
+      "description": "Is Init",
+      "default": false
     },
     "isBiz": {
       "type": "boolean",

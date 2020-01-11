@@ -72,11 +72,63 @@ export interface BaseCfgInterface {
     modulePath: string;
 }
 
-export const CONFIG = {
-    routes: {
-
-    } as BaseCfgInterface,
+export const CONFIG  = {
     biz: {
+        dirPath: `src/app/biz`,
+        routesModulePath: `src/app/biz/biz-routes.ts`,
+        routesModuleVar: `BizModulesChildren`,
+        routesModuleVarText: (options: any) => {
+            return `{ path: '${options.module}', loadChildren: () => import('./${options.module}/${options.module}.module').then(m => m.${classify(options.module)}Module) }`
+        },
+        mainModulePath: `src/app/biz/biz.module.ts`,
+        mainModuleVal: `MODULE`,
+        mainModuleValText: (options: any) => {
+            return classify(`${options.module}Module`);
+        }
+    } as CfgInterface,
 
-    } as BaseCfgInterface
+    routes: {
+        dirPath: `src/app/routes`,
+        routesModulePath: `src/app/routes/routes.children.ts`,
+        routesModuleVar: `RoutesModuleChildren`,
+        routesModuleVarText: (options: any) => {
+            return `{ path: '${options.module}', loadChildren: () => import('./${options.module}/${options.module}.module').then(m => m.${classify(options.module)}Module) }`
+        },
+        mainModulePath: `src/app/routes/routes.module.ts`,
+        mainModuleVal: `FRAMEWORK_MODULE`,
+        mainModuleValText: (options: any) => {
+            return classify(`${options.module}Module`);
+        }
+    } as CfgInterface
+}
+
+export interface CfgInterface {
+    /**
+     * 业务模块和框架模块的基础路径
+     */
+    dirPath: string;
+    /**
+     * 路由模块对象数组
+     */
+    routesModulePath: string;
+    /**
+     * 路由模块对象数组的变量名
+     */
+    routesModuleVar: string;
+    /**
+     * 要插入到路由模块对象数组的变量里的文本
+     */
+    routesModuleVarText: (option: any) => string;
+    /**
+     * 主模块路径
+     */
+    mainModulePath: string;
+    /**
+     * 主模块中需要进行操作的变量的名字
+     */
+    mainModuleVal: string;
+    /**
+     * 主模块中插入需要操作变量的文本，此处一般是模块的类名
+     */
+    mainModuleValText: (option: any) => string;
 }
