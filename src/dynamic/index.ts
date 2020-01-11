@@ -1,17 +1,9 @@
 
-import { chain, Rule, apply, url, template, branchAndMerge, mergeWith, filter, noop, Tree } from '@angular-devkit/schematics';
+import { chain, Rule, apply, url, template, branchAndMerge, mergeWith, filter, noop } from '@angular-devkit/schematics';
 import { classify, dasherize, camelize, underscore } from '@angular-devkit/core/src/utils/strings';
 import { SchemaOptions } from './schema';
-// import { createDefaultPath } from '../utility/workspace';Tree, 
-// import { parseName } from '../utility/parse-name';
 import { addValToVar, addImport } from '../utils/build';//addImport, 
 import { CONFIG, CfgInterface } from '../utils/config';
-// import { PathFragment } from '@angular-devkit/core';
-import { getWorkspace, buildDefaultPath } from '../utility/workspace';
-// import { buildDefaultPath } from '../utility/project';
-import { parseName } from '../utility/parse-name';
-import { findModule } from '../utility/find-module';
-// import { PathFragment } from '@angular-devkit/core';
 
 const stringUtils = { classify, dasherize, camelize, underscore };
 
@@ -19,27 +11,18 @@ export const MODULE_EXT = '.module.ts';
 export const ROUTING_MODULE_EXT = '-routing.module.ts';
 
 export function main(options: SchemaOptions): Rule {
-  return async (host: Tree) => {
+  return async () => {
     const cfgType = options.isBiz ? 'biz' : 'routes';
     const config = CONFIG[cfgType];
 
     options.path = config.dirPath;
-    const workspace = await getWorkspace(host);
 
-    const project: any = workspace.projects.get(options.project as string);
-    const b = buildDefaultPath(project);
-    console.log(`b`)
-    console.log(b)
-    const parsedPath = parseName(options.path as string, options.name);
-    console.log(`parsedPath`)
-    console.log(parsedPath)
+    // 当前路径
+    // const parsedPath = parseName(options.path as string, options.name);
+    // const pathToCheck = (options.path || '') + '/' + options.name;
+    // 最近的两个module路径
+    // const fp = findModule(host, pathToCheck)
 
-    if (options.path) {
-      const pathToCheck = (options.path || '') + '/' + options.name;
-      const fp = findModule(host, pathToCheck)
-      console.log(`最近的两个module路径:::::`);
-      console.log(fp);
-    }
     const templateOptions: SchemaOptions = {
       path: options.path,
       name: options.name,
@@ -50,7 +33,7 @@ export function main(options: SchemaOptions): Rule {
       newFormName: options.newFormName,
       editFormName: options.editFormName
     }
-    // console.log(options)
+    
     const templateSource = apply(url('./files'), [
       options.init ? noop() : filter(ext => !ext.endsWith('-api.service.ts')),
       options.init ? noop() : filter(ext => !ext.endsWith('-routing.module.ts')),

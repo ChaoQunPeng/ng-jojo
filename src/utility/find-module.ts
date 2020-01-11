@@ -94,10 +94,7 @@ export function findModule(host: Tree, generateDir: string,
   while (dir) {
     const allMatches = dir.subfiles.filter(p => p.endsWith(moduleExt));
     const filteredMatches = allMatches.filter(p => !p.endsWith(routingModuleExt));
-    console.log(`allMatches`)
-    console.log(allMatches)
-    console.log(`filteredMatches`)
-    console.log(filteredMatches)
+
     foundRoutingModule = foundRoutingModule || allMatches.length !== filteredMatches.length;
 
     if (filteredMatches.length == 1) {

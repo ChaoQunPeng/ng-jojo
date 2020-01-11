@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "id": "dynamic",
+  "title": "dynamic",
+  "type": "object",
+  "properties": {
+    "path": {
+      "type": "string",
+      "format": "path",
+      "description": "The path to create the component.",
+      "visible": false
+    },
+    "project": {
+      "type": "string",
+      "description": "The name of the project.",
+      "$default": {
+        "$source": "projectName"
+      }
+    },
+    "module": {
+      "type": "string",
+      "description": "module name",
+      "alias": "m",
+      "$default": {
+        "$source": "argv",
+        "index": 1
+      },
+      "x-prompt": "您想在哪个模块下创建此组件?:"
+    },
+    "name": {
+      "type": "string",
+      "description": "component name",
+      "alias": "n",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "这个组件的名称是:"
+    },
+    "formName": {
+      "type": "string",
+      "description": "table name",
+      "x-prompt": "这个组件中动态表单的名称是:"
+    },
+    "isBiz": {
+      "type": "boolean",
+      "description": "Is in Biz path",
+      "default": true
+    }
+  },
+  "required": [
+    "name",
+    "module",
+    "formName"
+  ]
+}

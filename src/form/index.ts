@@ -18,9 +18,7 @@ export function main(options: SchemaOptions): Rule {
     path: options.path,
     name: options.name,
     module: options.module,
-    searchFormName: options.searchFormName,
-    tableName: options.tableName,
-    tabTitle: options.tabTitle
+    formName: options.formName
   };
 
   const templateSource = apply(url('./files'), [
@@ -34,18 +32,18 @@ export function main(options: SchemaOptions): Rule {
     branchAndMerge(chain([
       mergeWith(templateSource),
       // The following two to routing-module
-      addImport(`${config.dirPath}/${options.module}/${options.module}-routing.module.ts`, `${classify(options.name)}Component`, `./${options.name}/${options.name}.component`),
-      addLoadChilrenToVal(`${config.dirPath}/${options.module}/${options.module}-routing.module.ts`, options),
+      // addImport(`${config.dirPath}/${options.module}/${options.module}-routing.module.ts`, `${classify(options.name)}Component`, `./${options.name}/${options.name}.component`),
+      // addLoadChilrenToVal(`${config.dirPath}/${options.module}/${options.module}-routing.module.ts`, options),
       // to module
       addComponentRef(`${config.dirPath}/${options.module}/${options.module}.module.ts`, options)
     ]))
   ]);
 }
 
-function addLoadChilrenToVal(filePath: string, options: SchemaOptions): Rule {
-  let text = `{ path: '${options.name}', component: ${classify(options.name)}Component, data: { title: "${options.name}" } }`;
-  return addValToVar(filePath, `routes`, text);
-}
+// function addLoadChilrenToVal(filePath: string, options: SchemaOptions): Rule {
+//   let text = `{ path: '${options.name}', component: ${classify(options.name)}Component, data: { title: "${options.name}" } }`;
+//   return addValToVar(filePath, `routes`, text);
+// }
 
 function addComponentRef(filePath: string, options: SchemaOptions) {
   return chain([

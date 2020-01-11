@@ -2,7 +2,7 @@
 import { Rule, apply, url, template, chain, branchAndMerge, mergeWith, } from '@angular-devkit/schematics';
 import { classify, dasherize, camelize, underscore } from '@angular-devkit/core/src/utils/strings';
 import { SchemaOptions } from './schema';
-import { CONFIG } from '../utils/config';
+import { CONFIG} from '../utils/config';
 import { addImport, addValToVar } from '../utils/build';
 
 const stringUtils = { classify, dasherize, camelize, underscore };
@@ -13,14 +13,10 @@ export const ROUTING_MODULE_EXT = '-routing.module.ts';
 export function main(options: SchemaOptions): Rule {
   const config = CONFIG[options.isBiz ? 'biz' : 'routes'];
   options.path = config.dirPath + '/' + options.module + '/' + options.name + '/';
-
   const templateOptions = {
     path: options.path,
     name: options.name,
-    module: options.module,
-    searchFormName: options.searchFormName,
-    tableName: options.tableName,
-    tabTitle: options.tabTitle
+    module: options.module
   };
 
   const templateSource = apply(url('./files'), [

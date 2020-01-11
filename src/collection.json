@@ -19,6 +19,21 @@
       "description": "tree-manager",
       "factory": "./tree-manager/index#treeManager",
       "schema": "./tree-manager/schema.json"
+    },
+    "blank": {
+      "description": "blank",
+      "factory": "./blank/index#main",
+      "schema": "./blank/schema.json"
+    },
+    "form": {
+      "description": "form",
+      "factory": "./form/index#main",
+      "schema": "./form/schema.json"
+    },
+    "table": {
+      "description": "table",
+      "factory": "./table/index#main",
+      "schema": "./table/schema.json"
     }
   }
 }
