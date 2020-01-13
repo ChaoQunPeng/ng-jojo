@@ -1,86 +1,116 @@
-import { chain, Rule, apply, url, template, branchAndMerge, mergeWith } from '@angular-devkit/schematics';
+import { chain, Rule, apply, url, template, branchAndMerge, mergeWith, noop, filter } from '@angular-devkit/schematics';
 import { classify, dasherize, camelize, underscore } from '@angular-devkit/core/src/utils/strings';
-import { TreeManagerOptions } from "./schema";
-import { addImport, addValToVar } from '../utils/build'; // buildSmart 
-import { Biz, Routes } from '../utils/config';
-
+import { SchemaOptions } from "./schema";
+import { CONFIG, CfgInterface } from '../utils/config';
+import { addLoadChilrenToVal, addImportDeclaration } from '../utils/build';
 
 const stringUtils = { classify, dasherize, camelize, underscore };
 
-export function treeManager(options: TreeManagerOptions): Rule {
+export function treeManager(options: SchemaOptions): Rule {
 
-    // 是业务模块还是框架模块
-    const MODULE = options.isBiz ? Biz : Routes;
+    const cfgType = options.isBiz ? 'biz' : 'routes';
+    const config = CONFIG[cfgType];
 
-    const childrenPath = options.isBiz ? '/page' : ''; // 这里实在是蛋疼，biz下多了个page文件夹
+    options.path = config.dirPath;
 
-    const bizChildren = {
-        ChildrenPath: MODULE.RoutingModuleChildrenPath,
-        symbolName: `{ path: '${options.module}', loadChildren: () => import('.${childrenPath}/${options.module}/${options.module}.module').then(m => m.${classify(options.module)}Module) }`
-    }
-
-    const listOptions = {
-        modPath: `${MODULE.ListPath}${options.module}/${options.module}.module.ts`,
-        routeModPath: `${MODULE.ListPath}${options.module}/${options.module}-routing.module.ts`,
-        symbolName: `${classify(options.name)}Component`,
-        componentPath: `./${options.name}/${options.name}.component`,
-        route: `{ path: '${options.name}', component: ${classify(options.name)}Component }`
-    };
-
-    const newOptions = {
-        sharedModulePath: MODULE.SharedModulePath,
-        symbolName: `${classify(options.name)}NewComponent`,
-        componentPath: `./components/${options.module}/${options.name}-new/${options.name}-new.component`,
-    };
-
-    const editOptions = {
-        sharedModulePath: MODULE.SharedModulePath,
-        symbolName: `${classify(options.name)}EditComponent`,
-        componentPath: `./components/${options.module}/${options.name}-edit/${options.name}-edit.component`,
-    };
-
-    const templateOption = {
+    const templateOptions: SchemaOptions = {
+        path: options.path,
         name: options.name,
         module: options.module,
-        operaComponent: options.operaComponent,
-        apiPath: MODULE.RestfulPath,
-        listPath: MODULE.ListPath + options.module + "/",
-        newPath: MODULE.NewPath + options.module + "/",
-        editPath: MODULE.EditPath + options.module + "/",
-        listComponentType: options.listComponentType,
-        editComponentType: options.editComponentType,
-        newComponentType: options.newComponentType,
-        RestfulPath: MODULE.RestfulPath,
-        ListPath: MODULE.ListPath,
-        PagePath: MODULE.PagePath,
-        SharedComponentDirTsConfig: MODULE.SharedComponentDirTsConfig
+        tabTitle: options.tabTitle,
+        searchFormName: options.searchFormName,
+        tableName: options.tableName,
+        newFormName: options.newFormName,
+        editFormName: options.editFormName
     }
 
     const templateSource = apply(url('./files'), [
+        options.init ? noop() : filter(ext => !ext.endsWith('-api.service.ts')),
+        options.init ? noop() : filter(ext => !ext.endsWith('-routing.module.ts')),
+        options.init ? noop() : filter(ext => !ext.endsWith('.module.ts')),
+        options.init ? noop() : filter(ext => !ext.endsWith('.service.ts')),
         template({
             ...stringUtils,
-            ...templateOption
+            ...templateOptions
         })
     ]);
 
     return chain([
         branchAndMerge(chain([
             mergeWith(templateSource),
-            addValToVar(bizChildren.ChildrenPath, MODULE.RoutingModuleChildrenVarName, bizChildren.symbolName),
-            //list module.ts
-            addImport(listOptions.modPath, listOptions.symbolName, listOptions.componentPath),
-            addValToVar(listOptions.modPath, "COMPONENTS", listOptions.symbolName),
-            //list routing-module.ts
-            addImport(listOptions.routeModPath, listOptions.symbolName, listOptions.componentPath),
-            addValToVar(listOptions.routeModPath, "routes", listOptions.route),
-
-            //new module.ts
-            addImport(newOptions.sharedModulePath, newOptions.symbolName, newOptions.componentPath),
-            addValToVar(newOptions.sharedModulePath, "COMPONENTS", newOptions.symbolName),
-
-            //edit module.ts
-            addImport(editOptions.sharedModulePath, editOptions.symbolName, editOptions.componentPath),
-            addValToVar(editOptions.sharedModulePath, "COMPONENTS", editOptions.symbolName)
+            addRef(options, config)
         ]))
+    ]);
+}
+
+function addRef(options: SchemaOptions, config: CfgInterface): Rule {
+    if (options.init) {
+        return chain([
+            addImportDeclaration(
+                `${config.mainModulePath}`,
+                `${classify(options.name)}Module`,
+                `./${options.module}/${options.module}.module`,
+                `${config.mainModuleVal}`,
+                `${classify(options.name)}Module`
+              ),
+            addLoadChilrenToVal(config.routesModulePath, options, config)
+        ]);
+    } else {
+        return addListNewEditRef(options, config);
+    }
+}
+
+/**
+ * 新增列表新增编辑三个页面的引用
+ * @param options 外部配置参数
+ * @param config 基础配置参数
+ */
+function addListNewEditRef(options: SchemaOptions, config: CfgInterface): Rule {
+    return chain([
+        // 暂时先不引入到routing-module.ts
+        // addImportDeclaration(
+        //     `./${config.dirPath}/${options.module}/${options.module}-routing.module.ts`,
+        //     `${classify(options.name)}Component`,
+        //     `./${options.name}/${options.name}.component`,
+        //     `routes`,
+        //     `{ path: '${options.name}', component: ${classify(options.name)}Component, data: { title: "${options.tabTitle}" }}`
+        // ),
+        // module.ts
+        addImportDeclaration(
+            `${config.dirPath}/${options.module}/${options.module}.module.ts`,
+            `${classify(options.name)}Component`,
+            `./${options.name}/${options.name}.component`,
+            `COMPONENTS`,
+            `${classify(options.name)}Component`
+        ),
+        // new-component to module
+        addImportDeclaration(
+            `${config.dirPath}/${options.module}/${options.module}.module.ts`,
+            `${classify(options.name)}NewComponent`,
+            `./${options.name}/${options.name}-new/${options.name}-new.component`,
+            `COMPONENTS`,
+            `${classify(options.name)}NewComponent`
+        ),
+        // edit-component to module
+        addImportDeclaration(
+            `${config.dirPath}/${options.module}/${options.module}.module.ts`,
+            `${classify(options.name)}EditComponent`,
+            `./${options.name}/${options.name}-edit/${options.name}-edit.component`,
+            `COMPONENTS`,
+            `${classify(options.name)}EditComponent`
+        )
+        // addImport(`./${config.dirPath}/${options.module}/${options.module}-routing.module.ts`, `${classify(options.name)}Component`, `./${options.name}/${options.name}.component`),
+        // addValToVar(`./${config.dirPath}/${options.module}/${options.module}-routing.module.ts`, `routes`, `{ path: '${options.name}', component: ${classify(options.name)}Component, data: { title: "${options.tabTitle}" }}`),
+
+        // addImport(`./${config.dirPath}/${options.module}/${options.module}.module.ts`, `${classify(options.name)}Component`, `./${options.name}/${options.name}.component`),
+        // addValToVar(`./${config.dirPath}/${options.module}/${options.module}.module.ts`, `COMPONENTS`, `${classify(options.name)}Component`),
+
+        // 新增页
+        // addImport(`${config.dirPath}/${options.module}/${options.module}.module.ts`, `${classify(options.name)}NewComponent`, `./${options.name}/${options.name}-new/${options.name}-new.component`),
+        // addValToVar(`${config.dirPath}/${options.module}/${options.module}.module.ts`, `COMPONENTS`, `${classify(options.name)}NewComponent`),
+
+        // 编辑页
+        // addImport(`${config.dirPath}/${options.module}/${options.module}.module.ts`, `${classify(options.name)}EditComponent`, `./${options.name}/${options.name}-edit/${options.name}-edit.component`),
+        // addValToVar(`${config.dirPath}/${options.module}/${options.module}.module.ts`, `COMPONENTS`, `${classify(options.name)}EditComponent`)
     ]);
 }

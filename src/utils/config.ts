@@ -26,6 +26,11 @@ export const Routes = {
     EditPath: `src/app/shared/components/`
 }
 
+export interface BaseSchmeOptions {
+    name: string;
+    module: string;
+}
+
 // export const Config = {
 //     biz: {
 //         filePath: `src/app/biz/biz-children.ts`,
@@ -72,7 +77,7 @@ export interface BaseCfgInterface {
     modulePath: string;
 }
 
-export const CONFIG  = {
+export const CONFIG = {
     biz: {
         dirPath: `src/app/biz`,
         routesModulePath: `src/app/biz/biz-routes.ts`,
@@ -81,7 +86,7 @@ export const CONFIG  = {
             return `{ path: '${options.module}', loadChildren: () => import('./${options.module}/${options.module}.module').then(m => m.${classify(options.module)}Module) }`
         },
         mainModulePath: `src/app/biz/biz.module.ts`,
-        mainModuleVal: `MODULE`,
+        mainModuleVal: `MODULES`,
         mainModuleValText: (options: any) => {
             return classify(`${options.module}Module`);
         }

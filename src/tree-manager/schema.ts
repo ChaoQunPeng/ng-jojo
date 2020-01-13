@@ -1,19 +1,13 @@
-export interface TreeManagerOptions {
-    name: string;
-    module: string;
-    operaComponent?: string;
-    apiPath?: string;
-    listPath?: string;
-    listModPath?: string;
-    listRoutePath?: string;
-    editPath: string;
-    newPath: string;
-    componentName?: string;
-    componentPath?: string;
-    filePath?: string;
-    listComponentType?: string;
-    editComponentType?: string;
-    newComponentType?: string;
-    isBiz: boolean;
-    PagePath?: string;
-}
+import { BaseSchmeOptions } from "../utils/config";
+
+export interface SchemaOptions extends BaseSchmeOptions {
+    path: string;
+    tabTitle: string;
+    searchFormName: string;
+    tableName: string;
+    newFormName: string;
+    editFormName: string;
+    init?: boolean;
+    project?: any;
+    isBiz?: boolean;
+  }

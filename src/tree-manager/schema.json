@@ -4,91 +4,82 @@
   "title": "3piece",
   "type": "object",
   "properties": {
-    "name": {
+    "path": {
       "type": "string",
-      "description": "name of all template",
-      "alias": "n",
+      "format": "path",
+      "description": "The path to create the component.",
+      "visible": false
+    },
+    "project": {
+      "type": "string",
+      "description": "The name of the project.",
       "$default": {
-        "$source": "argv",
-        "index": 0
-      },
-      "x-prompt": "what's your component name:"
+        "$source": "projectName"
+      }
     },
     "module": {
       "type": "string",
-      "description": "module of all template",
+      "description": "module name",
       "alias": "m",
       "$default": {
         "$source": "argv",
         "index": 1
       },
-      "x-prompt": "Which module do you want to add to:"
+      "x-prompt": "模块名称(不存在则创建此模块):"
     },
-    "operaComponent": {
+    "name": {
       "type": "string",
-      "alias": "o",
-      "default": "modal",
-      "enum": [
-        "modal",
-        "drawer"
-      ],
-      "description": "modal or drawer"
+      "description": "component name",
+      "alias": "n",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "组件名称："
     },
-    "apiPath": {
+    "tabTitle": {
       "type": "string",
-      "description": "restful path"
+      "description": "tab title",
+      "x-prompt": "此模块tab的title:"
     },
-    "listPath": {
+    "searchFormName": {
       "type": "string",
-      "description": "list compoent path"
+      "description": "search form name",
+      "x-prompt": "搜索栏动态表单的名字:"
     },
-    "listComponentType": {
+    "tableName": {
       "type": "string",
-      "alias": "lt",
-      "default": "static",
-      "enum": [
-        "static",
-        "dynamic"
-      ],
-      "description": "list component table type is static or dynamic"
+      "description": "table name",
+      "x-prompt": "动态表格的名字:"
     },
-    "newPath": {
+    "newFormName": {
       "type": "string",
-      "description": "new compoent path"
+      "description": "table name",
+      "x-prompt": "新增表单的名字:"
     },
-    "newComponentType": {
+    "editFormName": {
       "type": "string",
-      "alias": "nt",
-      "default": "static",
-      "enum": [
-        "static",
-        "dynamic"
-      ],
-      "description": "new component table type is static or dynamic"
+      "description": "table name",
+      "x-prompt": "编辑表单的名字:"
     },
-    "editPath": {
-      "type": "string",
-      "description": "edit component path"
-    },
-    "editComponentType": {
-      "type": "string",
-      "alias": "et",
-      "default": "static",
-      "enum": [
-        "static",
-        "dynamic"
-      ],
-      "description": "edit component table type is static or dynamic"
+    "init": {
+      "type": "boolean",
+      "description": "Is Init",
+      "default": false
     },
     "isBiz": {
       "type": "boolean",
-      "alias": "biz",
-      "default": true,
-      "description": "whether in biz create"
+      "description": "Is in Biz path",
+      "default": true
     }
   },
   "required": [
     "name",
-    "module"
+    "module",
+    "tabTitle",
+    "searchFormName",
+    "tableName",
+    "newFormName",
+    "editFormName"
   ]
 }

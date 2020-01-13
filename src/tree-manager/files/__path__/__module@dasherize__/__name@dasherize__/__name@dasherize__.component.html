@@ -2,11 +2,11 @@
   <nz-card [nzTitle]="titleTpl" [nzExtra]="extraTpl">
 
     <ng-template #titleTpl>
-      <%=classify(name)%>
+      <%=classify(tabTitle)%>
     </ng-template>
 
     <ng-template #extraTpl>
-      <button nz-button nzType="primary" (click)="add()">新增</button>
+      <button nz-button nzType="primary" (click)="add()">新增<%=tabTitle%></button>
       <button nz-button nzShape="circle" [nzLoading]="loading" (click)="reload()">
         <i nz-icon nzType="reload" nzTheme="outline"></i>
       </button>
@@ -41,7 +41,7 @@
             <ng-container *ngFor="let item of basicTable.data">
               <tr>
                 <td [nzShowExpand]="item?.Children.length > 0" [(nzExpand)]="item.expand"></td>
-                <td nzAlign="center">标识</td>
+                <td nzAlign="center">{{item?.<%=classify(module)%>ID}}</td>
 
                 <td nzAlign="center">
                   <a (click)="edit(item)">编辑</a>
@@ -55,7 +55,7 @@
 
                 <tr [nzExpand]="item.expand">
                   <td></td>
-                  <td nzAlign="center">标识</td>
+                  <td nzAlign="center">{{itemChild?.<%=classify(module)%>IDID}}</td>
 
                   <td nzAlign="center">
                     <a (click)="edit(itemChild)">编辑</a>
